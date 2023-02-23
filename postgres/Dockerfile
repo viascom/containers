@@ -1,24 +1,22 @@
-FROM alpine:3.17.2
+FROM viascom/alpine:3.17.2
 
-ARG CONTAINER_NAME=viascom-postgres
-ARG USER=exie
-ARG GROUP=party
-ARG PORT=5432
+ARG CONTAINER_NAME=postgres
+ARG PORT_NUMBER=5432
 
 ENV CONTAINER=$CONTAINER_NAME \
+    PORT=$PORT_NUMBER \
     LANG=en_US.utf8 \
     TZ=Etc/UTC
 
 COPY packages.list /tmp
 COPY run_service.sh /etc
 
-RUN apk update; \
+RUN set -eux; \
+    apk update; \
     xargs -r apk -v --update-cache add < /tmp/packages.list; \
     rm -rf /var/cache/apk/*; \
     rm /tmp/packages.list; \
     chmod +x /etc/run_service.sh; \
-    addgroup -S $GROUP; \
-    adduser -S -D -H $USER -G $GROUP -s /bin/bash; \
     mkdir /var/run/postgresql; \
     chown $USER:$GROUP /var/run/postgresql; \
     mkdir /var/lib/postgresql/data; \
