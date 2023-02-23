@@ -1,0 +1,8 @@
+util-linux
+bash
+bash-completion
+curl
+openssl
+su-exec
+dumb-init
+jq

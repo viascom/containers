@@ -1,0 +1,93 @@
+version: 2
+
+updates:
+
+  # Enable version updates for GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "daily"
+      time: "11:00"
+      timezone: "Europe/Zurich"
+    target-branch: "main"
+    labels:
+      - "github-actions"
+      - "dependencies"
+
+  # Enable version updates for alpine container
+  - package-ecosystem: "docker"
+    directory: "/alpine"
+    schedule:
+      interval: "daily"
+      time: "11:00"
+      timezone: "Europe/Zurich"
+    target-branch: "main"
+    labels:
+      - "alpine"
+      - "docker"
+      - "dependencies"
+
+  # Enable version updates for barman container
+  - package-ecosystem: "docker"
+    directory: "/barman"
+    schedule:
+      interval: "daily"
+      time: "11:00"
+      timezone: "Europe/Zurich"
+    target-branch: "main"
+    labels:
+      - "barman"
+      - "docker"
+      - "dependencies"
+
+  # Enable version updates for jdk container
+  - package-ecosystem: "docker"
+    directory: "/jdk"
+    schedule:
+      interval: "daily"
+      time: "11:00"
+      timezone: "Europe/Zurich"
+    target-branch: "main"
+    labels:
+      - "jdk"
+      - "docker"
+      - "dependencies"
+
+  # Enable version updates for jre container
+  - package-ecosystem: "docker"
+    directory: "/jre"
+    schedule:
+      interval: "daily"
+      time: "11:00"
+      timezone: "Europe/Zurich"
+    target-branch: "main"
+    labels:
+      - "jre"
+      - "docker"
+      - "dependencies"
+
+  # Enable version updates for pgpool container
+  - package-ecosystem: "docker"
+    directory: "/pgpool"
+    schedule:
+      interval: "daily"
+      time: "11:00"
+      timezone: "Europe/Zurich"
+    target-branch: "main"
+    labels:
+      - "pgpool"
+      - "docker"
+      - "dependencies"
+
+  # Enable version updates for postgres container
+  - package-ecosystem: "docker"
+    directory: "/postgres"
+    schedule:
+      interval: "daily"
+      time: "11:00"
+      timezone: "Europe/Zurich"
+    target-branch: "main"
+    labels:
+      - "postgres"
+      - "docker"
+      - "dependencies"
