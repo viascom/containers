@@ -5,8 +5,7 @@ ARG PORT_NUMBER=5432
 
 ENV CONTAINER=$CONTAINER_NAME \
     PORT=$PORT_NUMBER \
-    LANG=en_US.utf8 \
-    TZ=Etc/UTC
+    LANG=en_US.utf8
 
 USER root
 

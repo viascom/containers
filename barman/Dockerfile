@@ -1,11 +1,10 @@
-FROM alpine:3.17.2
+FROM viascom/alpine:3.17.2
 
-ARG CONTAINER_NAME=viascom-barman
-ARG USER=exie
-ARG GROUP=party
+ARG CONTAINER_NAME=barman
 
-ENV CONTAINER=$CONTAINER_NAME \
-    TZ=Etc/UTC
+ENV CONTAINER=$CONTAINER_NAME
+
+USER root
 
 COPY packages.list /tmp
 COPY run_service.sh /etc
@@ -14,13 +13,7 @@ RUN apk update; \
     xargs -r apk -v --update-cache add < /tmp/packages.list; \
     rm -rf /var/cache/apk/*; \
     rm /tmp/packages.list; \
-    chmod +x /etc/run_service.sh; \
-    addgroup -S $GROUP; \
-    adduser -S -D -H $USER -G $GROUP -s /bin/bash; \
-    mkdir /var/run/pgpool; \
-    chown $USER:$GROUP /var/run/pgpool; \
-    mkdir /var/log/pgpool; \
-    chown $USER:$GROUP /var/log/pgpool
+    chmod +x /etc/run_service.sh
 
 USER $USER
 
