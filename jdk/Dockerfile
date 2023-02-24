@@ -14,6 +14,6 @@ RUN set -eux; \
     apk update; \
     xargs -r apk -v --update-cache add < /tmp/packages.list; \
     rm -rf /var/cache/apk/*; \
-    rm /tmp/packages.list
+    rm -rf /tmp/packages.list
 
 USER $USER
