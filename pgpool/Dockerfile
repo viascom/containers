@@ -12,7 +12,8 @@ USER root
 COPY packages.list /tmp
 COPY run_service.sh /etc
 
-RUN apk update; \
+RUN set -eux; \
+    apk update; \
     xargs -r apk -v --update-cache add < /tmp/packages.list; \
     rm -rf /var/cache/apk/*; \
     rm /tmp/packages.list; \

@@ -8,7 +8,8 @@ USER root
 
 COPY packages.list /tmp
 
-RUN wget -P /etc/apk/keys https://cdn.azul.com/public_keys/alpine-signing@azul.com-5d5dc44c.rsa.pub; \
+RUN set -eux; \
+    wget -P /etc/apk/keys https://cdn.azul.com/public_keys/alpine-signing@azul.com-5d5dc44c.rsa.pub; \
     echo 'https://repos.azul.com/zulu/alpine' | tee -a /etc/apk/repositories; \
     apk update; \
     xargs -r apk -v --update-cache add < /tmp/packages.list; \
