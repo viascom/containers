@@ -17,7 +17,7 @@ RUN set -eux; \
     xargs -r apk -v --update-cache add < /tmp/packages.list; \
     rm -rf /var/cache/apk/*; \
     rm /tmp/packages.list; \
-    addgroup -S $GROUP; \
-    adduser -S -D -H $USER -G $GROUP -s /bin/bash
+    addgroup --system --gid 1001 $GROUP; \
+    adduser --system --disabled-password --no-create-home --uid 1001 $USER -G $GROUP -s /bin/bash
 
 USER $USER
