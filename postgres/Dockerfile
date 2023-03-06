@@ -1,11 +1,14 @@
 FROM viascom/alpine:3.17.2
 
 ARG CONTAINER_NAME=postgres
-ARG PORT_NUMBER=5432
+ARG PORT_NUMBER=57136
 
 ENV CONTAINER=$CONTAINER_NAME \
     PORT=$PORT_NUMBER \
-    LANG=en_US.utf8
+    LANG=en_US.utf8 \
+    PG_DATA_FOLDER=/var/lib/postgresql/data \
+    PG_RUN_FOLDER=/run/postgresql \
+    PG_LOG_FOLDER=/var/log/postgresql
 
 USER root
 
@@ -18,21 +21,21 @@ RUN set -eux; \
     rm -rf /var/cache/apk/*; \
     rm /tmp/packages.list; \
     chmod +x /etc/run_service.sh; \
-    mkdir -p /run/postgresql; \
-    chown $USER:$GROUP /run/postgresql; \
-    mkdir -p /var/lib/postgresql/data; \
-    chmod 0700 /var/lib/postgresql/data; \
+    mkdir -p $PG_RUN_FOLDER; \
+    chown $USER:$GROUP $PG_RUN_FOLDER; \
+    mkdir -p $PG_DATA_FOLDER; \
+    chmod 0700 $PG_DATA_FOLDER; \
     chown -R $USER:$GROUP /var/lib/postgresql; \
-    mkdir -p /var/log/postgresql; \
-    chown $USER:$GROUP /var/log/postgresql
+    mkdir -p $PG_LOG_FOLDER; \
+    chown $USER:$GROUP $PG_LOG_FOLDER
 
 USER $USER
-RUN initdb -D /var/lib/postgresql/data
-VOLUME /var/lib/postgresql/data
+RUN initdb --pgdata=$PG_DATA_FOLDER --encoding=UTF8 --username=$USER
+COPY postgresql.conf $PG_DATA_FOLDER
+COPY pg_hba.conf $PG_DATA_FOLDER
 
-RUN echo "host all all 0.0.0.0/0 md5" >> /var/lib/postgresql/data/pg_hba.conf; \
-    echo "listen_addresses='*'" >> /var/lib/postgresql/data/postgresql.conf; \
-    echo "port='$PORT'" >> /var/lib/postgresql/data/postgresql.conf
+VOLUME $PG_DATA_FOLDER
+VOLUME $PG_LOG_FOLDER
 
 EXPOSE $PORT
 
