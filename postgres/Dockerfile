@@ -6,6 +6,7 @@ ARG PORT_NUMBER=57136
 ENV CONTAINER=$CONTAINER_NAME \
     PORT=$PORT_NUMBER \
     LANG=en_US.utf8 \
+    ENCODING=UTF8 \
     PG_DATA_FOLDER=/var/lib/postgresql/data \
     PG_RUN_FOLDER=/run/postgresql \
     PG_LOG_FOLDER=/var/log/postgresql
