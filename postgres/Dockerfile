@@ -34,9 +34,6 @@ RUN initdb --pgdata=$PG_DATA_FOLDER --encoding=UTF8 --username=$USER
 COPY postgresql.conf $PG_DATA_FOLDER
 COPY pg_hba.conf $PG_DATA_FOLDER
 
-VOLUME pg_data
-VOLUME pg_log
-
 EXPOSE $PORT
 
 ENTRYPOINT ["/usr/bin/dumb-init", "--"]
