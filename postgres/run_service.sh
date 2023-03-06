@@ -8,4 +8,4 @@ if [ ! -d "$PG_DATA_FOLDER" ] || [ -z "$(ls -A "$PG_DATA_FOLDER")" ]; then
 fi
 
 pg_ctl start -D /var/lib/postgresql/data -l /var/log/postgresql/postgres.log
-tail -F "$(awk '{print $1}' "$PG_DATA_FOLDER"/current_logfiles)"
+tail -F "$(awk '{print $2}' "$PG_DATA_FOLDER"/current_logfiles)"
