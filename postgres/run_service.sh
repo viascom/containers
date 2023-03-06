@@ -8,4 +8,3 @@ if [ ! -d "$PG_DATA_FOLDER" ] || [ -z "$(ls -A "$PG_DATA_FOLDER")" ]; then
 fi
 
 pg_ctl start -D /var/lib/postgresql/data
-tail -F /var/log/postgresql/postgresql-*.json
