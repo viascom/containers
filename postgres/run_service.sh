@@ -7,4 +7,5 @@ if [ ! -d "$PG_DATA_FOLDER" ] || [ -z "$(ls -A "$PG_DATA_FOLDER")" ]; then
     cp /tmp/pg_hba.conf.backup "$PG_DATA_FOLDER"/pg_hba.conf
 fi
 
-pg_ctl start -D /var/lib/postgresql/data
+pg_ctl start -D /var/lib/postgresql/data -l /var/log/postgresql/postgres.log
+tail -F "$(awk '{print $1}' "$PG_DATA_FOLDER"/current_logfiles)"
