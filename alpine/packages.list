@@ -6,3 +6,4 @@ openssl
 su-exec
 dumb-init
 jq
+ca-certificates

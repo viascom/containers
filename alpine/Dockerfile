@@ -1,10 +1,12 @@
 FROM alpine:3.17.2
 
 ARG CONTAINER_NAME=alpine
+ARG HOST_NAME=alpine
 ARG USER_NAME=exie
 ARG GROUP_NAME=party
 
 ENV CONTAINER=$CONTAINER_NAME \
+    HOST=$HOST_NAME \
     USER=$USER_NAME \
     GROUP=$GROUP_NAME \
     TZ=Etc/UTC \
@@ -13,6 +15,7 @@ ENV CONTAINER=$CONTAINER_NAME \
 COPY packages.list /tmp
 
 RUN set -eux; \
+    echo $HOST;> /etc/hostname \
     apk update; \
     xargs -r apk -v --update-cache add < /tmp/packages.list; \
     rm -rf /var/cache/apk/*; \
