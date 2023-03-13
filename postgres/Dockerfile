@@ -9,7 +9,8 @@ ENV CONTAINER=$CONTAINER_NAME \
     PG_DEFAULT_DATABASE_ENCODING=UTF8 \
     PG_DATA_FOLDER=/var/lib/postgresql/data \
     PG_RUN_FOLDER=/run/postgresql \
-    PG_LOG_FOLDER=/var/log/postgresql
+    PG_LOG_FOLDER=/var/log/postgresql \
+    PG_SUPER_USER_PASSWORD=unsecure_so_change_this!
 
 USER root
 
@@ -31,7 +32,7 @@ RUN set -eux; \
     chown $USER:$GROUP $PG_LOG_FOLDER
 
 USER $USER
-RUN initdb --pgdata=$PG_DATA_FOLDER --encoding=UTF8 --username=$USER
+RUN initdb --pgdata=$PG_DATA_FOLDER --encoding=$PG_DEFAULT_DATABASE_ENCODING --username=$PG_SUPER_USER_NAME --pwfile=<(echo $PG_SUPER_USER_PASSWORD)
 COPY postgresql.conf /tmp/postgresql.conf.backup
 COPY pg_hba.conf /tmp/pg_hba.conf.backup
 
