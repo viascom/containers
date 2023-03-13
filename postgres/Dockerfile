@@ -32,7 +32,6 @@ RUN set -eux; \
     chown $USER:$GROUP $PG_LOG_FOLDER
 
 USER $USER
-RUN initdb --pgdata=$PG_DATA_FOLDER --encoding=$PG_DEFAULT_DATABASE_ENCODING --username=$PG_SUPER_USER_NAME --pwfile=<(echo $PG_SUPER_USER_PASSWORD)
 COPY postgresql.conf /tmp/postgresql.conf.backup
 COPY pg_hba.conf /tmp/pg_hba.conf.backup
 
